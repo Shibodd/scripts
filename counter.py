@@ -1,6 +1,9 @@
 """
-csv file:
-keyword, failCount
+Stores the number of times a key was inserted in a csv file.
+The count is viewable by opening the data file, which is sorted by descending count.
+
+csv file format:
+key, count
 """
 
 import csv
