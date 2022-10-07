@@ -1,5 +1,5 @@
 """
-Stores the number of times a key was inserted in a csv file.
+Stores in a csv file the number of times a key was inserted.
 The count is viewable by opening the data file, which is sorted by descending count.
 
 csv file format:
