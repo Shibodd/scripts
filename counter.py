@@ -33,7 +33,8 @@ def save_data(data):
         w = csv.DictWriter(f, FIELD_NAMES)
         w.writerows(({ 'key': k, 'count': v } for k, v in sorted(data.items(), key = lambda kvp: kvp[1], reverse = True)))
     
-    FILE_PATH.unlink()
+    if FILE_PATH.exists():
+        FILE_PATH.unlink()
     TMP_FILE_PATH.rename(FILE_PATH)
 
 data = load_data()
