@@ -1,5 +1,5 @@
 """
-Stores in a csv file the number of times a key was inserted.
+Stores in a csv file the number of times a string was inserted.
 The count is viewable by opening the data file, which is sorted by descending count.
 
 csv file format:
@@ -14,6 +14,7 @@ DEFAULT_FILE_NAME = 'counterdata.csv'
 
 argparser = argparse.ArgumentParser()
 argparser.add_argument('-d', '--datafile', default = DEFAULT_FILE_NAME, help = 'Defaults to {0}.'.format(DEFAULT_FILE_NAME))
+argparser.add_argument('--noautosave', action='store_false', help = 'If this flag is set, data is saved only when exiting on CTRL+C.'.format(True))
 args = argparser.parse_args()
 
 FIELD_NAMES = ['key', 'count']
@@ -50,7 +51,9 @@ try:
             data[kw] = data[kw] + 1
         else:
             data[kw] = 1
+        
+        if not args.noautosave:
+            save_data(data)
 except KeyboardInterrupt:
-    pass
-
-save_data(data)
+    if args.noautosave:
+        save_data(data)
