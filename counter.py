@@ -14,7 +14,7 @@ DEFAULT_FILE_NAME = 'counterdata.csv'
 
 argparser = argparse.ArgumentParser()
 argparser.add_argument('-d', '--datafile', default = DEFAULT_FILE_NAME, help = 'Defaults to {0}.'.format(DEFAULT_FILE_NAME))
-argparser.add_argument('--noautosave', action='store_false', help = 'If this flag is set, data is saved only when exiting on CTRL+C.'.format(True))
+argparser.add_argument('--noautosave', action='store_true', help = 'If this flag is set, data is saved only when exiting on CTRL+C.'.format(True))
 args = argparser.parse_args()
 
 FIELD_NAMES = ['key', 'count']
