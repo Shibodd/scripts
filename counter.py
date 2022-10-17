@@ -30,7 +30,7 @@ def load_data():
         return { row['key'].strip(): int(row['count']) for row in r }
 
 def save_data(data):
-    with TMP_FILE_PATH.open('w') as f:
+    with TMP_FILE_PATH.open('w', newline='') as f:
         w = csv.DictWriter(f, FIELD_NAMES)
         w.writerows(({ 'key': k, 'count': v } for k, v in sorted(data.items(), key = lambda kvp: kvp[1], reverse = True)))
     
