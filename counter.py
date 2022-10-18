@@ -21,13 +21,25 @@ FIELD_NAMES = ['key', 'count']
 FILE_PATH = pathlib.Path(args.datafile)
 TMP_FILE_PATH = pathlib.Path(str(FILE_PATH) + '.tmp')
 
+
+def add_kw(data, kw, count = 1):
+    if kw in data:
+        data[kw] = data[kw] + count
+    else:
+        data[kw] = count
+
 def load_data():
     if not FILE_PATH.exists():
         return {}
 
     with FILE_PATH.open('r') as f:
         r = csv.DictReader(f, FIELD_NAMES)
-        return { row['key'].strip(): int(row['count']) for row in r }
+
+        data = {}
+        for row in r:
+            add_kw(data, row['key'].strip(), int(row['count'].strip()))
+
+        return data
 
 def save_data(data):
     with TMP_FILE_PATH.open('w', newline='') as f:
@@ -45,12 +57,9 @@ print("Press CTRL+C at any time to save and exit from the program.")
 
 try:
     while True:
-        kw = input("Key: ")
+        kw = input("Key: ").strip()
 
-        if kw in data:
-            data[kw] = data[kw] + 1
-        else:
-            data[kw] = 1
+        add_kw(data, kw)
         
         if not args.noautosave:
             save_data(data)
