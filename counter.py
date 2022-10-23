@@ -21,6 +21,8 @@ FIELD_NAMES = ['key', 'count']
 FILE_PATH = pathlib.Path(args.datafile)
 TMP_FILE_PATH = pathlib.Path(str(FILE_PATH) + '.tmp')
 
+def sanitize(s):
+    return s.strip().lower()
 
 def add_kw(data, kw, count = 1):
     if kw in data:
@@ -37,7 +39,7 @@ def load_data():
 
         data = {}
         for row in r:
-            add_kw(data, row['key'].strip(), int(row['count'].strip()))
+            add_kw(data, sanitize(row['key']), int(sanitize(row['count'])))
 
         return data
 
@@ -57,7 +59,7 @@ print("Press CTRL+C at any time to save and exit from the program.")
 
 try:
     while True:
-        kw = input("Key: ").strip()
+        kw = sanitize(input("Key: "))
 
         add_kw(data, kw)
         
