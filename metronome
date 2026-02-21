@@ -58,7 +58,7 @@ interval = round(60000 / args.bpm)
 print("Actual BPM:", 60000 / interval)
 
 wave_obj = sa.WaveObject.from_wave_file(args.sound)
-tim = mmtimer(round(interval), lambda: wave_obj.play())
+tim = mmtimer(interval, lambda: wave_obj.play())
 tim.start(True)
 
 try:
